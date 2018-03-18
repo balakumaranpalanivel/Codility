@@ -49,22 +49,20 @@ Copyright 2009–2018 by Codility Limited. All Rights Reserved. Unauthorized cop
 Solution
 
 '''
-# you can write to stdout for debugging purposes, e.g.
-# print("this is a debug message")
 
 def solution(X, A):
     # write your code in Python 3.6
     
-    path_list = list()
+    path_list = dict()
     for i in range(1,X+1):
-       path_list.append(i)
+       path_list[i] = 0
 
     for i in range(0, len(A)):
         try:
-            path_list.remove(A[i])
+            del path_list[A[i]]
             if(len(path_list) == 0):
                 return i
-        except ValueError:
+        except KeyError:
             pass
 
     return -1
