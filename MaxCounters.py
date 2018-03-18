@@ -64,39 +64,21 @@ Copyright 2009–2018 by Codility Limited. All Rights Reserved. Unauthorized cop
 def solution(N, A):
     # write your code in Python 3.6
     
-    splice_index = 0
-    splice_val = N+1
+    length = len(A)
     max_val = 0
     
-    while True:
-        splice_index = A.index(splice_val) if splice_val in A else None
-        if (splice_index == None):
-            break
-        
-        work_array = A[:splice_index]
-        A = A[splice_index+1:]
-        
-        #print(work_array)
-        #print(A)
-        
-        # find duplicates in work array
-        max_count = 0
-        for item in set(work_array):
-            count = work_array.count(item)
-            if(count > max_count):
-                max_count = count
-        max_val += max_count
-        
-    #print ("Left Out: " + str(A))
-    #print (max_val)
-    
-    result = list()
+    new_dict = dict()
     for i in range(N):
-        result.append(max_val)
-        
-    #print (result)
-    for item in A:
-        result[item-1] += 1
-    #print (result)
+        new_dict[i+1] = 0
     
-    return result
+    for item in A:
+        if item == N+1:
+            new_dict = dict.fromkeys(new_dict, max_val)
+        else:
+            new_dict[item] += 1
+            
+            if new_dict[item] > max_val:
+                max_val = new_dict[item]
+        
+    #print (new_dict)
+    return list(new_dict.values())
